@@ -17,6 +17,7 @@ test:
 
 production:
   <<: *default
-  database: helpy_production
-  username: helpy
-  password: <%= ENV['helpy_DATABASE_PASSWORD'] %>
+  host: postgres
+  database: helpy_production 
+  username: helpy 
+  password: helpy1234 
