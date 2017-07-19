@@ -147,6 +147,7 @@ gem "recaptcha", require: "recaptcha/rails"
 gem 'best_in_place', '~> 3.0.1'
 
 group :development, :test do
+  gem 'capistrano', '~> 3.6'
   # Audit Gemfile for security vulnerabilities
   gem 'bundler-audit', require: false
   gem 'byebug'
