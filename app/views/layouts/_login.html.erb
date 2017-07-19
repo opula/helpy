@@ -1,10 +1,10 @@
 <% if Devise.omniauth_providers.count > 0 %>
-<div class="col-md-6 border-right">
-  <ul class="list-inline">
+ <div class="col-md-6 border-right">
+  <!-- <ul class="list-inline">
     <% Devise.omniauth_providers.each do |provider| %>
       <li style="width:100%;"><%= login_with(provider.to_s) %></li>
     <% end %>
-  </ul>
+  </ul> -->
 </div>
 
 <hr class="hidden-lg hidden-md"/>
@@ -39,8 +39,17 @@
   <% end %>
 </div>
 
-<div class="col-md-6 hidden-lg hidden-md">
-</div>
-<div class="col-md-6 modal-links">
-  <%= link_to I18n.t('devise.registrations.new.sign_up'), new_registration_path(resource_name) if forums? || tickets? %> | <%= link_to I18n.t('devise.passwords.new.forgot_your_password', default: "Forgot your password?"), '#', class: 'forgot-link' %>
-</div>
+<%- unless @current_user %>
+
+  <div class="col-md-6 hidden-lg hidden-md">
+  </div>
+  <div class="col-md-6 modal-links">
+    <%= link_to I18n.t('devise.registrations.new.sign_up'), new_registration_path(resource_name) if forums? || tickets? %> | <%= link_to I18n.t('devise.passwords.new.forgot_your_password', default: "Forgot your password?"), '#', class: 'forgot-link' %>  |
+    <%- if devise_mapping.omniauthable? %>
+      <%- resource_class.omniauth_providers.each do |provider| %>
+        <%= link_to "Sign in with #{provider.to_s.titleize}", user_omniauth_authorize_path(provider) %><br />
+      <% end -%>
+    <% end -%>
+  </div>
+
+<% end %>

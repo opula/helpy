@@ -28,6 +28,7 @@ public/uploads
 /.ruby-version
 /.ruby-gemset
 /.rvmrc
+.byebug_history
 
 # Docker stuff
 .env

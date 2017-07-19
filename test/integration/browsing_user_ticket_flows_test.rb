@@ -6,7 +6,7 @@ class BrowsingUserTicketFlowsTest < ActionDispatch::IntegrationTest
 
   def setup
     Warden.test_mode!
-    logout(:user)
+    sign_in("editor@test.com")
     set_default_settings
   end
 
@@ -15,30 +15,7 @@ class BrowsingUserTicketFlowsTest < ActionDispatch::IntegrationTest
     Warden.test_reset!
   end
 
-  test "a browsing user who is not registered should be able to create a private ticket via the web interface" do
-
-    # make sure recaptcha is disabled
-    AppSettings['settings.recaptcha_site_key'] = ""
-    AppSettings['settings.recaptcha_api_key'] = ""
-
-    # create new private ticket
-    visit '/en/topics/new/'
-
-    # a new user should be created
-    assert_difference('User.count', 1) do
-      assert_difference('Topic.count',1) do
-        fill_in('topic_user_email', with: 'test@test.com')
-        fill_in('topic[user][name]', with: 'John Smith')
-        fill_in('topic[name]', with: 'I got problems')
-        fill_in('topic[posts_attributes][0][body]', with: 'Please help me!!')
-        click_on('Create Ticket', disabled: true)
-      end
-    end
-    assert current_path == '/en/thanks'
-
-  end
-
-  test "a browsing user who is not registered should be able to create a public ticket via the web interface when recaptcha enable" do
+  test "a browsing user who is registered should be able to create a public ticket via the web interface when recaptcha enable" do
 
     # make sure recaptcha is enabled
     AppSettings['settings.recaptcha_enabled'] = "1"
@@ -48,30 +25,22 @@ class BrowsingUserTicketFlowsTest < ActionDispatch::IntegrationTest
     # create new private ticket
     visit '/en/topics/new/'
 
-    # a new user should be created
-    assert_difference('User.count', 1) do
-      assert_difference('Topic.count',1) do
-        fill_in('topic_user_email', with: 'test@test.com')
-        fill_in('topic[user][name]', with: 'John Smith')
-        fill_in('topic[name]', with: 'I got problems')
-        fill_in('topic[posts_attributes][0][body]', with: 'Please help me!!')
-        click_on('Create Ticket', disabled: true)
-      end
+    assert_difference('Topic.count',1) do
+      fill_in('topic[name]', with: 'I got problems')
+      fill_in('topic[posts_attributes][0][body]', with: 'Please help me!!')
+      click_on('Create Ticket', disabled: true)
     end
     assert current_path == "/en/topics/#{Topic.last.id}-i-got-problems/posts"
 
   end
 
   test "a browsing user who is registered should be able to create a private ticket via the web interface" do
-
     # create new private ticket
     visit '/en/topics/new/'
 
     # A new user should not be created
     assert_difference('User.count', 0) do
       assert_difference('Topic.count',1) do
-        fill_in('topic_user_email', with: 'scott.miller@test.com')
-        fill_in('topic[user][name]', with: 'Scott Miller')
         fill_in('topic[name]', with: 'I got problems')
         fill_in('topic[posts_attributes][0][body]', with: 'Please help me!!')
         click_on('Create Ticket', disabled: true)
@@ -107,24 +76,13 @@ class BrowsingUserTicketFlowsTest < ActionDispatch::IntegrationTest
   end
 
   test "a browsing user should be able to create a private ticket via widget" do
-
     visit '/widget'
 
     assert_difference('Post.count', 1) do
-      fill_in('topic_user_email', with: 'joe@test.com')
-      fill_in('topic_user_name', with: 'Joe Guy')
       fill_in('topic[name]', with: 'I got problems')
       fill_in('topic[posts_attributes][0][body]', with: 'Please help me!!')
       click_on('Create Ticket', disabled: true)
     end
 
   end
-
-  test "a browsing user should be prompted to login when clicking flag for review from a public discussion view" do
-    visit '/en/topics/5-new-public-topic/posts'
-    click_on "Flag for Review"
-    assert find("div#login-modal").visible?
-  end
-
-
 end

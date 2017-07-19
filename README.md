@@ -7,6 +7,17 @@ Helpy is a modern, "mobile first" helpdesk solution written in Ruby on Rails 4.2
 
 ![](http://helpy.io/images/HelpyBrowser.png)
 
+Use with rs-auth localhost
+==========================
+```
+$cd rs-auth
+$rs-auth: rake db:seed
+$rs-auth: rails s -p 3000
+$cd helpy
+$helpy: sudo rails s -p 80
+
+Sign in with roomchecking => done!
+```
 
 Features
 ========

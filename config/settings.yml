@@ -47,6 +47,9 @@ mail_domain: #Enter the heroku.com if you are on heroku, otherwise enter your do
 
 omniauth:
   providers:
+    roomchecking:
+      id: aebd62895aa2f09672598974924c320cc2ad6284126f361869d68be440ca0fc1
+      secret: 15c8252f55451de91d979572fb015153d2753823bd0da09ea0b04ef7056747d5
 #    github:
 #      id:
 #      secret:

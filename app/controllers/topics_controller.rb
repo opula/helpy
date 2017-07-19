@@ -28,7 +28,7 @@
 
 class TopicsController < ApplicationController
 
-  before_action :authenticate_user!, :only => ['tickets','ticket']
+  before_action :authenticate_user!, :only => ['tickets','ticket', 'new', 'create']
   before_action :allow_iframe_requests
   before_action :forums_enabled?, only: ['index','show']
   before_action :topic_creation_enabled?, only: ['new', 'create']

@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, :omniauth_providers => Devise.omniauth_providers
+         :omniauthable, :omniauth_providers => ["roomchecking"]
 
   INVALID_NAME_CHARACTERS = /\A('|")|('|")\z/
 

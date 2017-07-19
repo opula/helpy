@@ -32,6 +32,7 @@ class TopicsControllerTest < ActionController::TestCase
 
   setup do
     set_default_settings
+    sign_in users(:user)
   end
 
   test 'a browsing user should get index of topics in a public forum' do
@@ -63,9 +64,6 @@ class TopicsControllerTest < ActionController::TestCase
     get :new, locale: :en
     assert_response :success
 
-    assert_difference 'User.count', 1, 'A user should be created' do
-      post :create, topic: { user: { name: 'a user', email: 'anon@test.com' }, name: 'some new public topic', body: 'some body text', forum_id: 3, posts_attributes: {:"0" => {body: "this is the body"}}}, locale: :en
-    end
     assert_difference 'Topic.count', 1, 'A topic should have been created' do
       post :create, topic: { user: { name: 'a user', email: 'anon@test.com' }, name: 'some new public topic', body: 'some body text', forum_id: 3, posts_attributes: {:"0" => {body: "this is the body"}}}, locale: :en
     end
@@ -79,15 +77,15 @@ class TopicsControllerTest < ActionController::TestCase
   test 'a browsing user should be able to sign up and post a new message at the same time, and receive an email' do
 
     assert_difference 'Topic.count', 1 do
-      assert_difference 'ActionMailer::Base.deliveries.size', 2 do
+      assert_difference 'ActionMailer::Base.deliveries.size', 1 do
         post :create, topic: { user: { name: 'a user', email: 'anon@test.com' }, name: 'some new public topic', body: 'some body text', forum_id: 3, posts_attributes: {:"0" => {body: "this is the body"}}}, locale: :en
       end
     end
 
   end
 
-  test 'a browsing user should not be able to vote' do
-    assert_difference 'Topic.find(5).points', 0 do
+  test 'logged user should be able to vote' do
+    assert_difference 'Topic.find(5).points', 1 do
       get :index, forum_id: 3, locale: :en
       xhr :post, :up_vote, { id: 5, locale: :en }
     end
@@ -237,9 +235,6 @@ class TopicsControllerTest < ActionController::TestCase
     get :new, locale: :en
     assert_response :success
 
-    assert_difference 'User.count', 1, 'A user should be created' do
-      post :create, topic: { user: { name: 'a user', email: 'anon@test.com', private: false }, name: 'some new private topic', body: 'some body text', forum_id: 3, posts_attributes: {:"0" => {body: "this is the body"}}}, locale: :en
-    end
     assert_difference 'Topic.count', 1, 'A topic should have been created' do
       post :create, topic: { user: { name: 'a user', email: 'anon@test.com', private: false }, name: 'some new private topic', body: 'some body text', forum_id: 3, posts_attributes: {:"0" => {body: "this is the body"}}}, locale: :en
     end

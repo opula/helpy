@@ -14,6 +14,10 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     handle_redirect('devise.google_uid', 'Google')
   end
 
+  def roomchecking
+    handle_redirect('devise.roomchecking_uid', 'Roomchecking')
+  end
+
   private
 
   def handle_redirect(_session_variable, _kind)

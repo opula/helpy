@@ -22,6 +22,7 @@ class ForumsControllerTest < ActionController::TestCase
 
   setup do
     set_default_settings
+    sign_in users(:user)
   end
 
   test "a browsing user should get index" do

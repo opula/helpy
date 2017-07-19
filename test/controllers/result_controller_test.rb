@@ -8,6 +8,7 @@ class ResultControllerTest < ActionController::TestCase
     PgSearch::Multisearch.rebuild(Doc)
     PgSearch::Multisearch.rebuild(Topic)
     set_default_settings
+    sign_in users(:user)
   end
 
   test "a browsing user searching for a doc should return a result" do

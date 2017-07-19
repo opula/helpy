@@ -5,6 +5,7 @@ class SearchFlowsTest < ActionDispatch::IntegrationTest
 
   def setup
     # Build PG search
+    sign_in("editor@test.com")
     PgSearch::Multisearch.rebuild(Doc)
     PgSearch::Multisearch.rebuild(Topic)
     set_default_settings

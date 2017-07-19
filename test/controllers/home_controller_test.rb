@@ -4,6 +4,7 @@ class HomeControllerTest < ActionController::TestCase
 
   setup do
     set_default_settings
+    sign_in users(:user)
   end
 
   test "a browsing user in the default locale should be able to load home page" do
@@ -28,7 +29,7 @@ class HomeControllerTest < ActionController::TestCase
     assert_select "span.select-locale", false, "Should not have found locale selector"
   end
 
-  test "a browsing user should see the correct template when visiting the home page" do
+  test "a browsing user should see redirect to login" do
     get :index, locale: :en
     assert_template layout: "layouts/helpy"
   end
