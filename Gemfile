@@ -54,8 +54,8 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'devise-bootstrap-views'
 gem 'omniauth-oauth2', '~> 1.3.1'
-gem 'oauth-roomchecking-client', git: 'https://3b44b645fd57ca9166dbf92e5068f28e2026624d@github.com/opula/oauth-roomchecking-client', ref: '9524abeaeaa9525a6faa7561db288dcea574c546'
-gem 'omniauth-roomchecking', git: 'https://3b44b645fd57ca9166dbf92e5068f28e2026624d@github.com/opula/omniauth-roomchecking'
+gem 'oauth-roomchecking-client', git: 'git@github.com:opula/oauth-roomchecking-client', ref: '9524abeaeaa9525a6faa7561db288dcea574c546'
+gem 'omniauth-roomchecking', git: 'git@github.com:opula/omniauth-roomchecking'
 
 
 # i18n gems

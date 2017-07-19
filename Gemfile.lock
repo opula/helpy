@@ -1,5 +1,5 @@
 GIT
-  remote: https://3b44b645fd57ca9166dbf92e5068f28e2026624d@github.com/opula/oauth-roomchecking-client
+  remote: git@github.com:opula/oauth-roomchecking-client
   revision: 9524abeaeaa9525a6faa7561db288dcea574c546
   ref: 9524abeaeaa9525a6faa7561db288dcea574c546
   specs:
@@ -7,7 +7,7 @@ GIT
       rest-client
 
 GIT
-  remote: https://3b44b645fd57ca9166dbf92e5068f28e2026624d@github.com/opula/omniauth-roomchecking
+  remote: git@github.com:opula/omniauth-roomchecking
   revision: 0eca81548480792fbf8b1785f960f219842d06ee
   specs:
     omniauth-roomchecking (1.0.0)
